@@ -6,9 +6,9 @@
       </div>
     <% end %>
     <label class="amount">
-      <span>Amount: $5.00</span>
+      <span>Amount: <%= number_to_currency(@amount * 100) %></span>
     </label>
   </article>
 
-  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<%= Rails.application.credentials.stripe_publishable_key %>" data-description="A month's subscription" data-amount="500" data-locale="auto"></script>
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button" data-key="<%= Rails.application.credentials.stripe_publishable_key %>" data-description="A month's subscription" data-amount="<%= @amount %>" data-locale="auto"></script>
 <% end %>

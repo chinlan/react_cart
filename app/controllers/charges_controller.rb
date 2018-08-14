@@ -1,10 +1,9 @@
 class ChargesController < ApplicationController
+  before_action :calculate_amount
   def new
   end
 
   def create
-    @amount = 500
-
     customer = Stripe::Customer.create(
       email: params[:stripeEmail],
       source: params[:stripeToken]
@@ -20,5 +19,11 @@ class ChargesController < ApplicationController
   rescue Stripe::CardError => e
     flash[:error] = e.message
     redirect_to new_charge_path
+  end
+
+  private
+
+  def calculate_amount
+    @amount = Item.pluck(:price).inject{ |sum, price| sum + price }
   end
 end
