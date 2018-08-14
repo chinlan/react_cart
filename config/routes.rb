@@ -5,4 +5,6 @@ Rails.application.routes.draw do
   namespace :api do
     resources :items, except: %i[show new edit]
   end
+
+  resources :charges
 end
